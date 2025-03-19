@@ -4,5 +4,5 @@ jobs:
   share:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "result=global share!" >> "${ GIT_HUB_ENV }""
+      - run: echo "result=GlobalShare!" >> "${ GIT_HUB_ENV }""
       - run: echo "${result}"
