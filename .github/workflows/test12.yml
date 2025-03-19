@@ -6,4 +6,4 @@ jobs:
     steps:
       - run: echo ${{ github.actor }}
       - run: echo "Hello"
-        if: ${{ github.actor == 'tatsuya1995' }}
+        if: ${{ github.actor == 'tatsuya1996' }}
