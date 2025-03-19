@@ -1,0 +1,9 @@
+name: Conditions workflow
+on: push
+jobs: 
+  skip-or-run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.actor }}
+      - run: echo "Hello"
+        if: ${{ github.actor == 'tatsuya1996' }}
