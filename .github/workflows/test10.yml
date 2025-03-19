@@ -1,7 +1,7 @@
 name: COmpare functions
 on: push 
-hobs:
-  compare;
+jobs:
+  compare:
     runs-on: ubuntu-latest
     steps:
       - run: printenv | grep '_FUNC'
