@@ -4,5 +4,5 @@ jobs:
   print:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "{{ github.actor }}"
-      - run: echo "{{ github.event.pull_request.title }}"
+      - run: echo "${{ github.actor }}"
+      - run: echo "${{ github.event.pull_request.title }}"
