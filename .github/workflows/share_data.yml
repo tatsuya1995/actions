@@ -1,4 +1,4 @@
-name: Missing share data
+name: share data
 on: push
 jobs:
   share:
