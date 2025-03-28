@@ -16,7 +16,9 @@ jobs:
       - uses: actions/checkout@v4
       - id: output_matrix
         run: |
-          echo "matrix=$(ls environments | jq -R -s -c '{ "environment": split("\n")[:-1] }')" > $GITHUB_OUTPUT
+          # echo "matrix=$(ls environments | jq -R -s -c '{ "environment": split("\n")[:-1] }')" > $GITHUB_OUTPUT
+          echo "matrix=$(jq -nc --arg envs '${{ env.DEPLOY_ENVIRONMENTS }}' '{ "environment": ($envs | split(" ")) }')" >> $GITHUB_OUTPUT
+
   print:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment-name }}
