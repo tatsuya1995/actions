@@ -35,7 +35,11 @@ jobs:
 
   print:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment-name }}
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.setup.outputs.matrix) }}
+    environment: ${{ matrix.environment }}
     env:
       USERNAME: ${{ vars.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
