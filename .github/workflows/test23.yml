@@ -8,6 +8,15 @@ on:
         require: false
         description: Environment name
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.output_matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: output_matrix
+        run: |
+          echo "matrix=$(ls environments | jq -R -s -c '{ "environment": split("\n")[:-1] }')" > $GITHUB_OUTPUT
   print:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment-name }}
