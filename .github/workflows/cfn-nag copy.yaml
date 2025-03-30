@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0 # 全履歴を取得
 
       - name: Fetch origin main
-        run: git fetch --unshallow origin main
+        run: git fetch origin main
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
