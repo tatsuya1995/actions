@@ -10,11 +10,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
       - name: Install cfn-nag
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ruby
-          sudo gem install cfn-nag
+        run: gem install cfn-nag
 
       - name: Run cfn-nag
         run: cfn_nag_scan --input-path ./cloudformation-templates/
