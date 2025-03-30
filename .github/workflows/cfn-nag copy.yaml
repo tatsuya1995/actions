@@ -26,7 +26,7 @@ jobs:
       - name: Get diff files
         id: diff
         run: |
-          DIFF_FILES=$(git diff --name-only origin/main | grep -E '\.ya?ml$')
+          DIFF_FILES=$(git diff --name-only origin/main | grep -E '\.ya?ml$' | grep -v '\.github/workflows/')
           if [ -n "$DIFF_FILES" ]; then
             echo "diff_files=$DIFF_FILES" >> $GITHUB_OUTPUT
           fi
