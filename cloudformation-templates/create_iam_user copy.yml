@@ -1,0 +1,15 @@
+Resources:
+  MyIAMUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: MyUser
+
+  MyIAMGroup:
+    Type: AWS::IAM::Group
+
+  MyIAMUserGroupMembership:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: !Ref MyIAMGroup
+      Users:
+        - !Ref MyIAMUser
