@@ -29,8 +29,11 @@ jobs:
           DIFF_FILES=$(git diff --name-only origin/main | grep -E '\.ya?ml$' | grep -v '\.github/workflows/')
           if [ -n "$DIFF_FILES" ]; then
             echo "diff_files=$DIFF_FILES" >> $GITHUB_OUTPUT
+            echo "DIFF FILES: $DIFF_FILES" # デバッグ用
           fi
 
       - name: Run cfn-nag (diff)
         if: steps.diff.outputs.diff_files
-        run: cfn_nag_scan --input-path ${{ steps.diff.outputs.diff_files }} --deny-list-path ./settings/cfn-nag_deny_list.yml
+        run: |
+          echo "cfn-nag-scan input: ${{ steps.diff.outputs.diff_files }}" # デバッグ用
+          cfn_nag_scan --input-path ${{ steps.diff.outputs.diff_files }} --deny-list-path ./settings/cfn-nag_deny_list.yml
