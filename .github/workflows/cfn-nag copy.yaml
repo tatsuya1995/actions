@@ -12,15 +12,21 @@ jobs:
         with:
           fetch-depth: 0 # 全履歴を取得
 
+      - name: Fetch origin main
+        run: git fetch --unshallow origin main
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
 
+      - name: Install cfn-nag
+        run: gem install cfn-nag
+
       - name: Get diff files
         id: diff
         run: |
-          DIFF_FILES=$(git diff --name-only main | grep -E '\.ya?ml$')
+          DIFF_FILES=$(git diff --name-only origin/main | grep -E '\.ya?ml$')
           if [ -n "$DIFF_FILES" ]; then
             echo "diff_files=$DIFF_FILES" >> $GITHUB_OUTPUT
           fi
