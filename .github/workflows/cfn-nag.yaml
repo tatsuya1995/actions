@@ -17,4 +17,4 @@ jobs:
           sudo gem install cfn-nag
 
       - name: Run cfn-nag
-        run: cfn-nag --input-path ./cloudformation-templates/
+        run: cfn_nag --input-path ./cloudformation-templates/
