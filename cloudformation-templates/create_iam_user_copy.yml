@@ -4,12 +4,12 @@ Resources:
     Properties:
       UserName: MyUser
 
-  MyIAMGroup:
-    Type: AWS::IAM::Group
+  # MyIAMGroup:
+  #   Type: AWS::IAM::Group
 
-  MyIAMUserGroupMembership:
-    Type: AWS::IAM::UserToGroupAddition
-    Properties:
-      GroupName: !Ref MyIAMGroup
-      Users:
-        - !Ref MyIAMUser
+  # MyIAMUserGroupMembership:
+  #   Type: AWS::IAM::UserToGroupAddition
+  #   Properties:
+  #     GroupName: !Ref MyIAMGroup
+  #     Users:
+  #       - !Ref MyIAMUser
