@@ -26,7 +26,7 @@ jobs:
       - name: Get diff files
         id: diff
         run: |
-          DIFF_FILES=$(git diff --name-only origin/main -- cloudformation-templates/ | grep -E '\.ya?ml$')
+          DIFF_FILES=$(git diff --name-only origin/main -- cloudformation-templates/ | grep -E '\.ya?ml$' | tr '\n' ' ')
           if [ -n "$DIFF_FILES" ]; then
             echo "diff_files=$DIFF_FILES" >> $GITHUB_OUTPUT
             echo "DIFF FILES: $DIFF_FILES" # デバッグ用
