@@ -36,8 +36,8 @@ jobs:
         if: steps.diff.outputs.diff_files
         run: |
           for file in ${{ steps.diff.outputs.diff_files }}; do
-            cfn_nag_scan --input-path "$file" --deny-list-path ./settings/cfn-nag_deny_list.yml  || {
-            echo "cfn-nag-scan failed for $file"
-            # 必要に応じてエラーログを出力
-          }
-      done
+            cfn_nag_scan --input-path "$file" --deny-list-path ./settings/cfn-nag_deny_list.yml || {
+              echo "cfn-nag-scan failed for $file"
+              # 必要に応じてエラーログを出力
+            }
+          done
