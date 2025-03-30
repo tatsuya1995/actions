@@ -35,5 +35,5 @@ jobs:
       - name: Run cfn-nag (diff)
         if: steps.diff.outputs.diff_files
         run: |
-          echo "cfn-nag-scan input: ${{ steps.diff.outputs.diff_files }}" # デバッグ用
+          echo 'cfn-nag-scan input: ${{ steps.diff.outputs.diff_files }}' # デバッグ用
           cfn_nag_scan --input-path "${{ steps.diff.outputs.diff_files }}"" --deny-list-path ./settings/cfn-nag_deny_list.yml
