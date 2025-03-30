@@ -1,0 +1,30 @@
+name: CloudFormation Security Check
+
+on: [push, pull_request]
+
+jobs:
+  security_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 全履歴を取得
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Get diff files
+        id: diff
+        run: |
+          DIFF_FILES=$(git diff --name-only main | grep -E '\.ya?ml$')
+          if [ -n "$DIFF_FILES" ]; then
+            echo "diff_files=$DIFF_FILES" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run cfn-nag (diff)
+        if: steps.diff.outputs.diff_files
+        run: cfn_nag_scan --input-path ${{ steps.diff.outputs.diff_files }} --deny-list-path ./settings/cfn-nag_deny_list.yml
