@@ -19,4 +19,4 @@ jobs:
         run: gem install cfn-nag
 
       - name: Run cfn-nag
-        run: cfn_nag_scan --input-path ./cloudformation-templates/ --deny-list-path ./cloudformation-templates/cfn-nag_deny_list.yml
+        run: cfn_nag_scan --input-path ./cloudformation-templates/ --deny-list-path ./cloudformation-templates/settings/cfn-nag_deny_list.yml
