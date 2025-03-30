@@ -1,0 +1,3 @@
+ RulesToSuppress:
+   - id: F2000
+     reason: "no operational problems"

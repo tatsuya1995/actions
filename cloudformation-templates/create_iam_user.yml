@@ -2,4 +2,4 @@ Resources:
   MyIAMUser:
     Type: AWS::IAM::User
     Properties:
-      UserName: MyUser # IAMユーザー名
+      UserName: MyUser
