@@ -1,6 +1,6 @@
-name: S3 List Multi Account
+name: Multi Account
 
-on: push_request
+on: pull_request
 
 jobs:
   list_s3_buckets:
