@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-resion: ${{ secrets.AWS_RESION ]}}
+          aws-resion: ${{ secrets.AWS_RESION }}
 
       - name: List S3 bucket
         run: aws s3 ls s3://test-oac.com
