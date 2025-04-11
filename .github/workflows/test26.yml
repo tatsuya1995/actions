@@ -1,0 +1,29 @@
+name: S3 List Multi Account
+
+on: push_request
+
+jobs:
+  list_s3_buckets:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      matrix:
+        environment:
+          - Account1
+          - Account2
+    environment:
+      name: ${{ matrix.environment }}
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-resion: ${{ secrets.AWS_RESION ]}}
+
+      - name: List S3 bucket
+        run: aws s3 ls s3://test-oac.com
