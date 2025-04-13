@@ -3,29 +3,36 @@ name: Multi Account
 on: pull_request
 
 jobs:
+  get_environments:
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.set_environments.outputs.environments }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Environments
+        id: set_environments
+        run: |
+          environments=$(gh api /repos/tatsuya1995/actions/environments --jq -r '[.environments[].name]')
+          echo "environments=[\"$environments\"]" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
   list_s3_buckets:
+    needs: get_environments
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     strategy:
       matrix:
-        environment: ${{ fromJson(format('["{0}"]', env.ENVIRONMENTS)) }}
+        environment: ${{ fromJson(needs.get_environments.outputs.environments) }}
     environment:
       name: ${{ matrix.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Get Environments
-        run: |
-          environments=$(gh api /repos/tatsuya1995/actions/environments --jq -r '.environments[].name')
-          echo "ENVIRONMENTS=$environments" >> $GITHUB_ENV
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-      - name: Debug GITHUB_ENV
-        run: echo "$GITHUB_ENV"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
