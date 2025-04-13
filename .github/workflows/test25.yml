@@ -1,0 +1,44 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches: ["mani"]
+
+env:
+  AWS_RESION: ap-northeast-1
+  ECR_REPOSITORY: hogeRepository
+  ECS_TASK_DEFINITION: task-definition.json
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_TO_ ASSUME }}
+          aws-region: ${{ secrets.AWS_RESION }}
+          role-session-name: GitHubActions
+          role-duration-seconds: 3600
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, adn push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REGISTRY
