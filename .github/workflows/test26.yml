@@ -19,6 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Get Environments
+        run: |
+          environments=$(gh api /repos/${{ github.repository }}/environments --jq '.[].name')
+          echo "ENVIRONMENTS=$environments" >> $GITHUB_ENV
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
