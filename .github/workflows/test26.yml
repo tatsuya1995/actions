@@ -10,9 +10,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        environment:
-          - Account1
-          # - Account2
+        environment: ${{ fromJson(format('[{0}]', env.ENVIRONMENTS)) }}
     environment:
       name: ${{ matrix.environment }}
     steps:
@@ -21,7 +19,7 @@ jobs:
 
       - name: Get Environments
         run: |
-          environments=$(gh api /repos/${{ github.repository }}/environments)
+          environments=$(gh api /repos/tatsuya1995/actions/environments --jq -r '.environments[].name')
           echo "ENVIRONMENTS=$environments" >> $GITHUB_ENV
         env:
           GH_TOKEN: ${{ github.token }}
