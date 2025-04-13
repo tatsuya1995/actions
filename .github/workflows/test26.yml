@@ -10,7 +10,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        environment: ${{ fromJson(format('[{0}]', env.ENVIRONMENTS)) }}
+        environment: ${{ fromJson(format('["{0}"]', env.ENVIRONMENTS)) }}
     environment:
       name: ${{ matrix.environment }}
     steps:
